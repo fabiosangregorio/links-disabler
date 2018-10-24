@@ -1,0 +1,20 @@
+{
+  "name": "Links Disabler",
+  "version": "1.0",
+  "description": "A really simple Chrome extension to temporarily disable all links on a webpage.",
+  "permissions": ["activeTab"],
+  "background": {
+    "scripts": ["background.js"],
+    "persistent": false
+  },
+  "browser_action": {},
+  "commands": {
+    "toggle-links": {
+      "suggested_key": {
+        "default": "Alt+Shift+D"
+      },
+      "description": "Disable/Enable links"
+    }
+  },
+  "manifest_version": 2
+}
