@@ -27,12 +27,18 @@ const executeScript = () => {
     });
 
   linksDisabled = !linksDisabled;
+  chrome.browserAction.setIcon({
+    path: `icon48${linksDisabled ? "" : 'enabled'}.png`
+  });
 }
 
-chrome.commands.onCommand.addListener(() => {
-  executeScript();
-});
+chrome.commands.onCommand.addListener(() => executeScript());
 
-chrome.browserAction.onClicked.addListener(() => {
-  executeScript();
-});
+chrome.browserAction.onClicked.addListener(() => executeScript());
+
+chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
+  if (changeInfo.status === 'complete' && tab.active)
+    chrome.browserAction.setIcon({
+      path: `icon48enabled.png`
+    });
+})
