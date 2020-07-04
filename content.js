@@ -48,5 +48,7 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
     case "getstatus":
       sendResponse({ linksDisabled });
       break;
+    default:
+      sendResponse({ });
   }
 });

@@ -12,10 +12,10 @@
     "scripts": ["background.js"],
     "persistent": false
   },
-  // "content_scripts": [{
-  //   "matches": ["http://*/*", "https://*/*"],
-  //   "js": ["content.js"]
-  // }],
+  "content_scripts": [{
+    "matches": ["http://*/*", "https://*/*"],
+    "js": ["content.js"]
+  }],
   "browser_action": {},
   "commands": {
     "toggle-links": {

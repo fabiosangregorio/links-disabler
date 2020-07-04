@@ -1,10 +1,6 @@
 'use strict';
 
-const executeScript = (firstExec = false) => {
-  if(firstExec) {
-    firstExec = false;
-    chrome.tabs.executeScript({ file: 'content.js' });
-  }
+const executeScript = () => {
   chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
     chrome.tabs.sendMessage(tabs[0].id, "linkstoggle", function(response) {
       if(!response) return;
@@ -30,7 +26,6 @@ chrome.browserAction.onClicked.addListener(() => {
 chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
   if (changeInfo.status === 'complete' && tab.active) {
     setIcon(false);
-    executeScript(true);
   }
 });
 
