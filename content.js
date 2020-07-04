@@ -22,27 +22,19 @@ function dataAttr(node, attrKey, dataKey, removeData, attrValue, dataValue) {
 
 const disableLinks = () => {
   [...document.getElementsByTagName('a')].forEach(link => {
-    dataAttr(link, 'href', 'data-linkdisabler-href', false, 'javascript:;');
-    dataAttr(link, 'draggable', 'datalinkdisabler-draggable', false, 'false');
-    link.classList.add('linkdisabler-disabled');
+    link.classList.add('linksdisabler-disabled');
   });
 }
 
 const enableLinks = () => {
   [...document.getElementsByTagName('a')].forEach(link => {
-    dataAttr(link, 'href', 'data-linkdisabler-href', true);
-    dataAttr(link, 'draggable', 'datalinkdisabler-draggable', true);
-    link.classList.remove('linkdisabler-disabled');
+    link.classList.remove('linksdisabler-disabled');
   });
 }
 
 addStyle(`
-  a.linkdisabler-disabled {
-    cursor: auto !important;
-    -webkit-user-select: text !important;
-    -moz-select: text !important;
-    -ms-select: text !important;
-    user-select: text !important;
+  a.linksdisabler-disabled {
+    pointer-events: none !important;
   }
 `);
 
@@ -52,7 +44,7 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
       linksDisabled = !linksDisabled;
       linksDisabled ? disableLinks() : enableLinks();
       sendResponse({ linksDisabled });
-    break;
+      break;
     case "getstatus":
       sendResponse({ linksDisabled });
       break;

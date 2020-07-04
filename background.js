@@ -1,15 +1,11 @@
 'use strict';
 
-let firstExec = true;
-
-const executeScript = () => {
+const executeScript = (firstExec = false) => {
   if(firstExec) {
     firstExec = false;
-    chrome.tabs.executeScript({
-      file: 'content.js'
-    });
+    chrome.tabs.executeScript({ file: 'content.js' });
   }
-  chrome.tabs.query({active: true, currentWindow: true}, function(tabs){
+  chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
     chrome.tabs.sendMessage(tabs[0].id, "linkstoggle", function(response) {
       if(!response) return;
       setIcon(response.linksDisabled);
@@ -34,6 +30,7 @@ chrome.browserAction.onClicked.addListener(() => {
 chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
   if (changeInfo.status === 'complete' && tab.active) {
     setIcon(false);
+    executeScript(true);
   }
 });
 
