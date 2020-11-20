@@ -6,6 +6,9 @@
 
 <p align="center"><a href="https://chrome.google.com/webstore/detail/links-disabler/dpgcehldjbcfejamdkfaeoamlpjlhbig?hl=en"><img src="https://developer.chrome.com/webstore/images/ChromeWebStore_BadgeWBorder_v2_206x58.png"></a></p>
 
+## Like the project?
+ <a href="https://www.buymeacoffee.com/fabiosang" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/lato-orange.png" alt="Buy Me A Coffee" width="200"></a>
+
 ## How it works
 To toggle between disabling and enabling all links, simply click the extension icon (located in the upper right corner of the browser) or use the keyboard shortcut **Alt + Shift + D**. 
 
