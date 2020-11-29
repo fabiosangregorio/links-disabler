@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Links Disabler options</title>
+  <link rel="stylesheet" href="options.css">
+</head>
+<body>
+<div class="form-item">
+  <div class="flex-container">
+    <label class="cursor-pointer" for="global">Save toggle status globally and on page reload</label>
+    <input type="checkbox" id="global" name="global">
+  </div>
+  <div class="hint">
+    When you hit "disable links", the change will be reflected on all tabs, and links will stay disabled on page reload.
+  </div>
+</div>
+
+<div class="form-item">
+  <div class="mb-10">
+    <label for="disablelist">Disable links that follow the pattern:</label>
+    <div class="hint">One pattern per line. Accepts regular expressions.</div>
+  </div>
+  <textarea type="checkbox" id="disablelist" name="disablelist"></textarea>
+  <div class="hint">
+    Example:<br>
+      *.google.com*<br>
+      https://www.amazon.com/stores/node/*<br>
+      http://*
+  </div>
+</div>
+
+<div class="flex-container">
+  <button id="save">Save</button>
+  <div id="status"></div>
+</div>
+
+<script src="options.js"></script>
+</body>
+</html>

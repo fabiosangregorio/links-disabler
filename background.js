@@ -1,37 +1,75 @@
 'use strict';
 
-const executeScript = () => {
-  chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
-    chrome.tabs.sendMessage(tabs[0].id, "linkstoggle", function(response) {
+const sendMessage = (action, tabId = null, responseFn = null) => {
+  if (!responseFn) {
+    responseFn = (response) => {
+      console.info('response received: ' + (response ? 'not ' : '') + 'empty');
       if(!response) return;
-      setIcon(response.linksDisabled);
-    });  
-  });
-}
-
-const setIcon = (status) => {
-  chrome.browserAction.setIcon({
-    path: `icon48${status ? "" : 'enabled'}.png`
-  });
-}
-
-chrome.commands.onCommand.addListener(() => {
-  executeScript();
-});
-
-chrome.browserAction.onClicked.addListener(() => {
-  executeScript();
-});
-
-chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
-  if (changeInfo.status === 'complete' && tab.active) {
-    setIcon(false);
+      chrome.storage.sync.set({ globalState: response.state });
+      setIcon(response.state);
+    }
   }
+  
+  chrome.storage.sync.get({
+    global: false,
+    globalState: false
+  }, (storage) => {
+    const message = {
+      action: action,
+      global: storage.global,
+      globalState: storage.globalState
+    }
+    if(tabId) {
+      chrome.tabs.sendMessage(tabId, message,responseFn); 
+    } else {
+      chrome.tabs.query({active: true, currentWindow: true}, (tabs) => {
+        if(!tabs[0]?.id) {
+          console.info('no tab id found. tabs object is: ', tabs);
+          return;
+        }
+        chrome.tabs.sendMessage(tabs[0].id, message, responseFn); 
+      });
+    }
+    console.info('message sent');
+  });
+}
+
+/**
+ * Handler for commands fired from keyboard shortcuts
+ */
+chrome.commands.onCommand.addListener(() => sendMessage('toggleLinks'));
+
+/**
+ * Handler for extension button click
+ */
+chrome.browserAction.onClicked.addListener(() => sendMessage('toggleLinks'));
+
+/**
+ * Fired when a tab is updated.
+ */
+chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
+  sendMessage('refresh', tabId);
+  // if (changeInfo.status === 'complete' && tab.active) {
+  // }
 });
 
+/**
+ * Fires when the active tab in a window changes
+ */
 chrome.tabs.onActivated.addListener(activeInfo => {
-  chrome.tabs.sendMessage(activeInfo.tabId, "getstatus", function(response) {
-    if(!response) return;
-    setIcon(response.linksDisabled);
-  });  
+  sendMessage('refresh', activeInfo.tabId);
 });
+
+
+/* UTILITY FUNCTIONS */
+
+/**
+ * Sets the extension icon to either enabled or disabled
+ * @param {bool} status Boolean indicating whether the icon is enabled or not
+ */
+const setIcon = (status) => {
+  console.info('setIcon: status ', status);
+  chrome.browserAction.setIcon({
+    path: `icons/icon48${status ? "" : 'enabled'}.png`
+  });
+}

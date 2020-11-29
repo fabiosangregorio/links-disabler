@@ -1,0 +1,43 @@
+body {
+  padding: 10px;
+  font-size: 15px;
+}
+
+.form-item {
+  margin-bottom: 20px;
+}
+
+.flex-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+input[type="checkbox"] {
+  width: 15px;
+  height: 15px;
+  cursor: pointer;
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+.mb-10 {
+  margin-bottom: 10px;
+}
+
+textarea {
+  width: 100%;
+  height: 100px;
+  padding: 5px;
+}
+
+.hint {
+  color: #aaa;
+  font-size: 12px;
+}
+
+button {
+  cursor: pointer;
+}
