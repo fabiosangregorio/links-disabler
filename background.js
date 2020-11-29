@@ -3,7 +3,6 @@
 const sendMessage = (action, tabId = null, responseFn = null) => {
   if (!responseFn) {
     responseFn = (response) => {
-      console.info('response received: ' + (response ? 'not ' : '') + 'empty');
       if(!response) return;
       chrome.storage.sync.set({ globalState: response.state });
       setIcon(response.state);
@@ -12,25 +11,25 @@ const sendMessage = (action, tabId = null, responseFn = null) => {
   
   chrome.storage.sync.get({
     global: false,
-    globalState: false
+    globalState: false,
+    disableList: []
   }, (storage) => {
     const message = {
       action: action,
       global: storage.global,
-      globalState: storage.globalState
+      globalState: storage.globalState,
+      disableList: storage.disableList
     }
     if(tabId) {
       chrome.tabs.sendMessage(tabId, message,responseFn); 
     } else {
       chrome.tabs.query({active: true, currentWindow: true}, (tabs) => {
         if(!tabs[0]?.id) {
-          console.info('no tab id found. tabs object is: ', tabs);
           return;
         }
         chrome.tabs.sendMessage(tabs[0].id, message, responseFn); 
       });
     }
-    console.info('message sent');
   });
 }
 
@@ -49,8 +48,6 @@ chrome.browserAction.onClicked.addListener(() => sendMessage('toggleLinks'));
  */
 chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
   sendMessage('refresh', tabId);
-  // if (changeInfo.status === 'complete' && tab.active) {
-  // }
 });
 
 /**
@@ -68,7 +65,6 @@ chrome.tabs.onActivated.addListener(activeInfo => {
  * @param {bool} status Boolean indicating whether the icon is enabled or not
  */
 const setIcon = (status) => {
-  console.info('setIcon: status ', status);
   chrome.browserAction.setIcon({
     path: `icons/icon48${status ? "" : 'enabled'}.png`
   });

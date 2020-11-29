@@ -8,8 +8,12 @@ addStyle(`
   }
 `);
 
-const setLinks = (disable) => {
-  [...document.getElementsByTagName('a')].forEach(link => {
+const setLinks = (disable, disableList = []) => {
+  let links = [...document.getElementsByTagName('a')];
+  if(disableList.length) {
+    links = links.filter(link => matchPattern(link.getAttribute('href'), disableList));
+  } 
+  links.forEach(link => {
     if (disable) {
       link.classList.add('linksdisabler-disabled');
     } else {
@@ -24,21 +28,28 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
   switch(request.action) {
     case "toggleLinks":
       localState = !currentState;
-      setLinks(localState);
+      setLinks(localState, request.disableList);
       break;
     case "refresh":
       if(currentState != localState) {
         localState = currentState;
-        setLinks(localState);
+        setLinks(localState, request.disableList);
       }
       break;
   }
-  console.info('localstate: ', localState);
   sendResponse({ state: localState });
 });
 
 
 /* UTILITY FUNCTIONS */
+
+function matchPattern(str, rules) {
+  return new RegExp("^" + 
+    rules
+      .map(rule => rule.replace(/[.?+^$[\]\\(){}|-]/g, "\\$&").split("*").join(".*") + "$")
+      .join('|')
+    ).test(str);
+}
 
 /**
  * Utility function to switch attribute and data values on an HTML node

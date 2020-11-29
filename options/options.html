@@ -17,8 +17,11 @@
 
 <div class="form-item">
   <div class="mb-10">
-    <label for="disablelist">Disable links that follow the pattern:</label>
-    <div class="hint">One pattern per line. Accepts regular expressions.</div>
+    <label for="disablelist">Only disable links that follow the pattern:</label>
+    <div class="hint">
+      One pattern per line. * wildcards are accepted. <br>
+      (leave blank to disable all links)
+    </div>
   </div>
   <textarea type="checkbox" id="disablelist" name="disablelist"></textarea>
   <div class="hint">

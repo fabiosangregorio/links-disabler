@@ -18,8 +18,9 @@ document.addEventListener('DOMContentLoaded', () => {
  */
 document.querySelector('#save').addEventListener('click', () => {
   let global = document.querySelector("#global").checked;
-  let disableList = document.querySelector("#disablelist").value.split("\n");
-
+  let disableList = document.querySelector("#disablelist").value
+  disableList = disableList.length ? disableList.split("\n") : [];
+  
   chrome.storage.sync.set({
     global: global,
     disableList: disableList
