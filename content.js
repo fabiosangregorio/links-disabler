@@ -11,7 +11,7 @@ addStyle(`
 const setLinks = (disable, disableList = []) => {
   let links = [...document.getElementsByTagName('a')];
   if(disableList.length) {
-    links = links.filter(link => matchPattern(link.getAttribute('href'), disableList));
+    links = links.filter(link => matchPattern(link.href, disableList));
   } 
   links.forEach(link => {
     if (disable) {

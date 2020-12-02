@@ -51,7 +51,7 @@ You can configure the extension options through the extension's options page:
  <a href="https://www.buymeacoffee.com/fabiosang" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/lato-orange.png" alt="Buy Me A Coffee" width="180"></a>
 
 ## Bugs and feature requests
-For any issues, bugs and feature requests feel free to [open an issue](https://github.com/fabiosangregorio/google-calendar-quick-duplicate/issues) on Github.
+For any issues, bugs and feature requests feel free to [open an issue](https://github.com/fabiosangregorio/links-disabler/issues) on Github.
 
 ## Versioning
 Releases versions on Github correspond to the relative release version on the Chrome Web Store.
