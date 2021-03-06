@@ -7,7 +7,7 @@
 
 ## Get the extension
 
-<p align="center"><a href="https://chrome.google.com/webstore/detail/links-disabler/dpgcehldjbcfejamdkfaeoamlpjlhbig?hl=en"><img src="https://developer.chrome.com/webstore/images/ChromeWebStore_BadgeWBorder_v2_206x58.png" width="206"></a></p>
+<p align="center"><a href="https://chrome.google.com/webstore/detail/links-disabler/dpgcehldjbcfejamdkfaeoamlpjlhbig?hl=en"><img src="https://storage.googleapis.com/chrome-gcs-uploader.appspot.com/image/WlD8wC6g8khYWPJUsQceQkhXSlv1/UV4C4ybeBTsZt43U4xis.png" width="206"></a></p>
 
 
 ## Usage
